@@ -1,0 +1,79 @@
+#
+#
+#  A home security system based on raspberry pi and learning algorithms
+#
+#
+
+1) Pi clients
+	- The system can support many pis each with camera modules.  The pis are wifi enabled
+	- Each pi captures an image every n seconds and pushs to server for analysis
+		* Image name is ‘piPic_’+datestamp
+
+	- TODO: At start-up, pi automatically add themselves to server's list of nodes via API call
+		* Via API, get node number
+		* Use node number in subsequent interactions with server
+
+	- TODO: every 15min pushes health check to local serverv ia API
+
+	
+	- Debugging code to push image from pi to server
+
+		curl -F "file=@/Users/andy/Documents/Software/imageProcessing/johnny-cash-1210.jpg" http://localhost:5000/uploads
+		Using python requests:
+
+			import requests
+			url = 'http://localhost:5000/uploads'
+			files = {'file':open('/Users/andy/Documents/Software/imageProcessing/johnny-cash-1210.jpg','rb')}
+			r = requests.post(url, files=files)
+		
+	
+	
+2) Server
+	- Linux/mac system running web service to receive images from each pi client
+		* Flask TODO: and Flask RESTful services
+		* Service is defined in web_service.py 
+	- The service logs to file, and the file name is configurable.  
+		* The default is LOG_FILE = 'imageServer.log'
+	- Images are received from pi work units via an HTTP multipart form post
+	- Image is analyzed with SVM classifier algorithm to determine if threat is present in image
+		* A window is scanned over the image and the classifier algorithm is run on each subregion
+	- TODO: If a threat is detected the image is pushed to Dropbox and an SMS is sent to the specified phone numbers
+		* Uses python dropbox API
+		* Google SMS service
+	- TODO: Cluster management
+		* Health check
+		* configured to know how many pis in network (automatic)
+		* pushes aggregated health message to dropbox
+	- RESTful service summary:
+		- add pi: When new pi posts reply with work unit number	
+		- health check: recive "I'm healthy message from pi"
+		- Image upload: receive image from pi for threat analysis
+			1) Support multipart form Post
+			2) Post triggers image classifier (threat/no threat)
+			3) If threat upload to dropbox and send SMS
+    - TODO: MongoDB
+        - Use Mongo to manage image files
+        - Collections:
+            * metaData
+
+            * imageFiles
+                db.imageDb.insert({"date":"4/1/13",
+                "path":"/imageProcessing/Flask/uploads","threat":0,
+                "fileName":"blah.jpeg","submitter":1})
+
+        - Aggregations:
+            How many files are there:
+                db.imageDb.find().count()
+            Get list, and delete desired number oldest first
+                db.users.find( { status: "A" } ).sort( { user_id: 1 } ).limit(1)
+
+3) TODO: Remote server TBD
+	- AWS micro linux free tier 
+	- RESTful service receives health check info from each client
+    
+4) Dropbox
+    - App key       #
+    - App secret    #
+    - code          #
+                    
+    access_token = #	
