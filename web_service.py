@@ -1,11 +1,11 @@
 #
 #
-#   This module defines the web service that recieves images from worker pis, 
+#   This module defines the web service that recieves images from worker pis,  
 #   analyzes the images, and communicates results
 #
 #   If an image from a pi is classified as a threat, it is uploaded to
 #   dropbox and an sms is sent to the designated notification numbers
-#
+#   TODO: finish dropbox and sms
 #
 
 import os
@@ -117,7 +117,7 @@ def upload_file():
             y_pred = runtimeImageProcessByWindow(MODEL_NAME,
                         os.path.join(app.config['UPLOAD_FOLDER'], filename),
                         (40,80),(.75,.75),
-                        (40,40,100,160),
+                        (40,40,90,160),
                         invertImage=False,
                         debug=True
                         )
