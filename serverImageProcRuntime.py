@@ -10,6 +10,7 @@ import numpy as np
 # import Image
 from PIL import Image
 import sklearn
+from sklearn.externals import joblib
 
 
 def runtimeImageProcessByWindow(modelPath,imagePath,
@@ -101,9 +102,9 @@ def runtimeImageProcessByWindow(modelPath,imagePath,
 if __name__ == "__main__":
     
     
-    IMAGE_DIR = '/Users/andy/Documents/Software/imageProcessing/'
-    MODEL_NAME = './model/imageSvmClassifier.pkl'
-    TEST_IMAGE = 'windowTest.jpg'
+    IMAGE_DIR = '/Users/andy/Documents/Software/imageProcessing/testing/'
+    MODEL_NAME = '/Users/andy/Documents/Software/imageProcessing/model/imageSvmClassifier.pkl'
+    TEST_IMAGE = 'test.jpg'
 
     t0 = time.time()
     y_pred = runtimeImageProcessByWindow(IMAGE_DIR+MODEL_NAME,

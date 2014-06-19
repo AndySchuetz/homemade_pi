@@ -18,7 +18,7 @@ from sklearn.decomposition import RandomizedPCA
 from sklearn.svm import SVC
 
 import numpy as np
-import Image
+from PIL import Image
 
 
 def singleImage2nparray(imagePath,imageSize):

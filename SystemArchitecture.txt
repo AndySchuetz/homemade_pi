@@ -19,6 +19,9 @@
 	- Debugging code to push image from pi to server
 
 		curl -F "file=@/Users/andy/Documents/Software/imageProcessing/johnny-cash-1210.jpg" http://localhost:5000/uploads
+
+		curl -F "file=@testing/test.jpg" http://localhost:5000/uploads
+
 		Using python requests:
 
 			import requests
@@ -67,13 +70,31 @@
             Get list, and delete desired number oldest first
                 db.users.find( { status: "A" } ).sort( { user_id: 1 } ).limit(1)
 
-3) TODO: Remote server TBD
+3) Server Environment
+	- Run imageUntils.py to process 
+
+
+4) TODO: Remote server TBD
 	- AWS micro linux free tier 
 	- RESTful service receives health check info from each client
     
-4) Dropbox
+5) Dropbox
     - App key       #
     - App secret    #
     - code          #
                     
-    access_token = #	
+    access_token = #
+
+ 6) Project dependencies
+ 	Libraries (ordered list)
+ 		brew install libtiff libjpeg webp little-cms2 (required for jpeg support within Pillow)
+
+
+ 	Python (ordered list)
+ 		scipy (globally installed)
+ 		nose
+ 		pillow	(Maintained version of PIL)
+ 		joblib (for saving models to disk)
+ 		scikits Learn
+ 		flask
+
